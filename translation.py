@@ -12,6 +12,17 @@ def talk(text):
     engine.runAndWait()
 
 
+def speech():
+    with mic as source:
+        talk("listening")
+        print("Listening")
+        r.adjust_for_ambient_noise(source)
+        audio = r.listen(source)
+        talk("Recognizing")
+        print("recognizing")
+    return audio
+
+
 Trans = Translator()
 engine = pyttsx3.init()
 voice_id = engine.getProperty('voices')
@@ -25,13 +36,7 @@ talk("Welcome to the smart translator")
 
 def translator():
     talk("Please give the destination language")
-    with mic as source:
-        talk("listening")
-        print("Listening")
-        r.adjust_for_ambient_noise(source)
-        audio2 = r.listen(source)
-        talk("Recognizing")
-        print("recognizing")
+    audio2 = speech()
     try:
         lang1 = r.recognize_google(audio2)
     except:
@@ -47,15 +52,9 @@ def translator():
     else:
         lang2 = lang1
     talk("Please tell me what do i need to translate")
-    with mic as source:
-        talk("listening")
-        print("Listening")
-        r.adjust_for_ambient_noise(source)
-        audio = r.listen(source)
-        print("Recognizing")
-        talk("Recognizing")
+    audio3 = speech()
     try:
-        text1 = r.recognize_google(audio)
+        text1 = r.recognize_google(audio3)
     except:
         talk("sorry we could not get the sentence")
         talk("Please enter the text in box")
@@ -73,14 +72,8 @@ def translator():
 
 def allow():
     talk("Do I need to translate something else?")
-    with mic as source:
-        talk("listening")
-        print("Listening")
-        r.adjust_for_ambient_noise(source)
-        audio3 = r.listen(source)
-        print("Recognizing")
-        talk("Recognizing")
-    confirm1 = r.recognize_google(audio3)
+    audio4 = speech()
+    confirm1 = r.recognize_google(audio4)
     return confirm1
 
 
@@ -91,10 +84,13 @@ def confirm():
         confirm()
     elif 'no' in text:
         talk("Thank you so much")
-        talk("we hope you had a good experience")
+        talk("I hope you had a good experience")
+        exit()
+    else:
+        talk("Invalid Input")
+        talk("Answer in a yes or no")
+        confirm()
 
 
 translator()
 confirm()
-
-
