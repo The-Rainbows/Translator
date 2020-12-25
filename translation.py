@@ -40,7 +40,7 @@ def translator():
     try:
         lang1 = r.recognize_google(audio2)
     except:
-        talk("Sorry we could not get the destination language")
+        talk("Sorry I could not get the destination language")
         talk("Please Enter the destination language")
         lang1 = pymsgbox.password(text="Enter the destination language(lower)", title="Please enter the text here",
                                   default="", mask=None)
