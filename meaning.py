@@ -36,7 +36,7 @@ def meanings():
     try:
         txt = r.recognize_google(audio1)
     except :
-        talk("Sorry , we could not get the word")
+        talk("Sorry , I could not get the word")
         talk("Please Enter the text in box")
         txt = pymsgbox.password(text="Enter the word here", title="Alternate input", default='',
                                 mask=None)
